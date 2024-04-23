@@ -85,12 +85,28 @@ jobs:
         
     # if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
     steps:
+    
       - name: 'Checkout'
         if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
         uses: actions/checkout@v4
+
+      - name: 'Setup Terraform'
+        if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.1
+          terraform_wrapper: false
+
+      - name: 'Setup Terragrunt'
+        if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
+        uses: autero1/action-terragrunt@v1.1.0
+        with:
+          terragrunt_version:  0.48.0
+
       - name: Interact with Terragrunt
         if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
         run: terragrunt --version
+
       - name: 'Plan ${{ matrix.aws_accounts.name }}'
         if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
         run: pwd && ls -ltr

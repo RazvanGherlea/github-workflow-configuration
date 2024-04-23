@@ -73,7 +73,7 @@ jobs:
 
       - name: "Set job status"
         if: "!contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )"
-        run: echo "::set-output name=job_icon::❌"
+        run: echo "::warning::This is not executed" #echo "::set-output name=job_icon::❌"
 
       - name: 'Checkout'
         if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )

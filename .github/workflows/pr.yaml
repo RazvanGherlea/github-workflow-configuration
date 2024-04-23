@@ -83,18 +83,18 @@ jobs:
       run:
         shell: bash
         
-    if: contains( needs.Validate.outputs.changed_files, strategy.matrix.aws_accounts.name )
+    # if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
     steps:
-      - name: 'Plan ${{ matrix.aws_accounts.name }}'
-        # if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
-        run: pwd && ls -ltr
-        working-directory: ${{ matrix.aws_accounts.name }}
       - name: 'Checkout'
-        # if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
+        if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
         uses: actions/checkout@v4
       - name: Interact with Terragrunt
-        # if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
+        if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
         run: terragrunt --version
+      - name: 'Plan ${{ matrix.aws_accounts.name }}'
+        if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
+        run: pwd && ls -ltr
+        working-directory: ${{ matrix.aws_accounts.name }}
 
 
   cleanup:

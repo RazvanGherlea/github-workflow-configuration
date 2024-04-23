@@ -83,12 +83,16 @@ jobs:
             account_id: 905418137412
           - name: security-global-prod
             account_id: 851725647430
+
+    defaults:
+      run:
+        shell: bash
+
     steps:
       - name: 'Plan ${{ matrix.aws_accounts.name }}'
         if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
         run: |
-          echo "terragrunt run-all plan --terragrunt-non-interactive"
-          pwd
+          echo "terragrunt run-all plan --terragrunt-non-interactive" && pwd
         working-directory: ${{ matrix.aws_accounts.name }}
 
 

@@ -86,8 +86,8 @@ jobs:
     steps:
       - name: 'Plan ${{ matrix.aws_accounts.name }}'
         if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
-        run: pwd && echo && ls -ltr && echo && ls -ltr *
-        run: pwd && echo && ls -ltr && echo && ls -ltr *
+        run: |
+          pwd && echo && ls -ltr && echo && ls -ltr *
         # working-directory: ${{ matrix.aws_accounts.name }}
 
 

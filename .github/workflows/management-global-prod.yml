@@ -1,0 +1,24 @@
+name: management-global-prod
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Terragrunt log level'
+        required: true
+        default: 'info'
+        type: choice
+        options:
+          - info
+          - debug
+          - panic
+          - fatal
+          - error
+          - warn
+          - trace
+
+jobs:
+  call-reusable-workflow:
+    uses: ./.github/workflows/reusable-workflow.yml
+    with:
+      aws-target-account: 'management-global-prod'

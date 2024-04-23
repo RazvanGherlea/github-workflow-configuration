@@ -1,0 +1,36 @@
+name: manual-apply-aws-account
+
+on:
+  workflow_dispatch:
+    inputs:
+      aws-target-account:
+        description: 'Select the AWS Account where to run terragrunt apply'
+        required: true
+        # default: 'info'
+        type: choice
+        options:
+          - management-global-prod
+          - network-global-prod
+          - sharedsvc-global-prod
+          - monitoring-global-prod
+          - security-global-prod
+      logLevel:
+        description: 'Terragrunt log level'
+        required: true
+        #default: 'info'
+        type: choice
+        options:
+          - info
+          - debug
+          - panic
+          - fatal
+          - error
+          - warn
+          - trace
+
+jobs:
+  call-reusable-workflow:
+    uses: ./.github/workflows/reusable-workflow.yml
+    with:
+      aws-target-account: "${{ inputs.aws-target-account }}"
+

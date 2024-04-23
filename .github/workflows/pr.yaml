@@ -1,0 +1,101 @@
+name: PullRequest - Terragrunt plan Stage
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: read
+
+env:
+  iam_doer_role_name: "infrastructure-doer-role"
+  aws_region: "eu-central-1"
+
+jobs:
+  Validate:
+    name: "Get changed files from the PullRequest stage"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v4
+
+      - name: Detect changed files
+        id: changed_files
+        uses: dorny/paths-filter@v3
+        with:
+          list-files: 'escape'
+          base: 'main'
+          filters: |
+            changed:
+              - '**/*.hcl'
+
+      - name: 'Setup Terraform'
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.1
+          terraform_wrapper: false
+
+      - name: 'Setup Terragrunt'
+        uses: autero1/action-terragrunt@v1.1.0
+        with:
+          terragrunt_version:  0.48.0
+
+      - name: Interact with Terragrunt
+        run: terragrunt --version
+
+      # - name: configure aws credentials
+      #   uses: aws-actions/configure-aws-credentials@v2
+      #   with:
+      #     role-to-assume: arn:aws:iam::288242937299:role/GitHubCI
+      #     role-session-name: InfraWriterSession
+      #     aws-region: eu-central-1
+
+      - name: Print changed files
+        shell: bash
+        run: |
+          echo "${{ steps.changed_files.outputs.changed_files }}"
+
+    outputs:
+      changed_files: ${{ steps.changed_files.outputs.changed_files }}
+
+
+  terragrunt_plan:
+    name: "Terragrunt plan "
+    runs-on: ubuntu-latest
+    needs: [Validate]
+    strategy:
+      matrix:
+        # Iterating through hardcoded dir path and comparing changed file
+        aws_accounts:
+          - name: management-global-prod
+            account_id: 211125582498
+          - name: network-global-prod
+            account_id: 471112563910
+          - name: sharedsvc-global-prod
+            account_id: 590184046954
+          - name: monitoring-global-prod
+            account_id: 905418137412
+          - name: security-global-prod
+            account_id: 851725647430
+    steps:
+      - name: 'Plan ${{ matrix.aws_accounts.name }}'
+        if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
+        run: |
+          echo "terragrunt run-all plan --terragrunt-non-interactive"
+          pwd
+        working-directory: ${{ matrix.aws_accounts.name }}
+
+
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: [terragrunt_plan]
+    steps:
+    - name: WS cleanup
+      run: |
+        sudo rm -rf ${{ github.workspace }}/*

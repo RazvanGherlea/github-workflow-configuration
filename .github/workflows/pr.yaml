@@ -84,11 +84,12 @@ jobs:
         shell: bash
 
     steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v4
       - name: 'Plan ${{ matrix.aws_accounts.name }}'
         if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
-        run: |
-          pwd && echo && ls -ltr && echo && ls -ltr *
-        # working-directory: ${{ matrix.aws_accounts.name }}
+        run: pwd && ls -ltr
+        working-directory: ${{ matrix.aws_accounts.name }}
 
 
   cleanup:

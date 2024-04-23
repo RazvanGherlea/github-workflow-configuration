@@ -35,20 +35,6 @@ jobs:
             changed:
               - '**/*.hcl'
 
-      - name: 'Setup Terraform'
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.5.1
-          terraform_wrapper: false
-
-      - name: 'Setup Terragrunt'
-        uses: autero1/action-terragrunt@v1.1.0
-        with:
-          terragrunt_version:  0.48.0
-
-      - name: Interact with Terragrunt
-        run: terragrunt --version
-
       # - name: configure aws credentials
       #   uses: aws-actions/configure-aws-credentials@v2
       #   with:
@@ -83,9 +69,8 @@ jobs:
       run:
         shell: bash
         
-    # if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
     steps:
-    
+
       - name: 'Checkout'
         if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
         uses: actions/checkout@v4

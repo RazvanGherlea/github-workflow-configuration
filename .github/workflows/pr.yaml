@@ -74,15 +74,10 @@ jobs:
         # Iterating through hardcoded dir path and comparing changed file
         aws_accounts:
           - name: management-global-prod
-            account_id: 211125582498
           - name: network-global-prod
-            account_id: 471112563910
           - name: sharedsvc-global-prod
-            account_id: 590184046954
           - name: monitoring-global-prod
-            account_id: 905418137412
           - name: security-global-prod
-            account_id: 851725647430
 
     defaults:
       run:

@@ -12,9 +12,9 @@ permissions:
   contents: read
   pull-requests: read
 
-env:
-  iam_doer_role_name: "infrastructure-doer-role"
-  aws_region: "eu-central-1"
+# env:
+#   iam_doer_role_name: "infrastructure-doer-role"
+#   aws_region: "eu-central-1"
 
 jobs:
   Validate:
@@ -34,13 +34,6 @@ jobs:
           filters: |
             changed:
               - '**/*.hcl'
-
-      # - name: configure aws credentials
-      #   uses: aws-actions/configure-aws-credentials@v2
-      #   with:
-      #     role-to-assume: arn:aws:iam::288242937299:role/GitHubCI
-      #     role-session-name: InfraWriterSession
-      #     aws-region: eu-central-1
 
       - name: Print changed files
         shell: bash
@@ -71,13 +64,26 @@ jobs:
         
     steps:
 
-      - name: "Set job status"
-        if: "!contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )"
-        run: echo "::warning::This is not executed" #echo "::set-output name=job_icon::❌"
-
       - name: 'Checkout'
         if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
         uses: actions/checkout@v4
+
+      - name: configure aws credentials
+        if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::590184046954:role/GitLabCI
+          role-session-name: InfraWriterSession
+          aws-region: eu-central-1
+
+############################################################################################
+# Testing the configure aws credentials action workflow ####################################
+############################################################################################
+
+
+
+
+############################################################################################
 
       - name: 'Setup Terraform'
         if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )

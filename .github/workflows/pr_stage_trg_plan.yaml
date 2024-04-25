@@ -11,6 +11,7 @@ on:
 permissions:
   contents: read
   pull-requests: read
+  id-token: write
 
 # env:
 #   iam_doer_role_name: "infrastructure-doer-role"

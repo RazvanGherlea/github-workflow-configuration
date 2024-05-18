@@ -68,7 +68,7 @@ jobs:
         #   CHANGED_FILES_PR:  ${{ steps.changed_files.outputs.changed_files }}
         shell:  bash
         #run: echo "Yeah boyy $CHANGED_FILES_PR"
-        run: env
+        run: git diff --name-only HEAD HEAD~1
 
 
   terragrunt_plan:

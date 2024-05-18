@@ -25,17 +25,16 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v4
 
-      - name: Get all changed markdown files
-        id: changed-markdown-files
+      - name: Get changed files
+        id: changed-files
         uses: tj-actions/changed-files@v44
+        # To compare changes between the current commit and the last pushed remote commit set `since_last_remote_commit: true`. e.g
         with:
-          # Avoid using single or double quotes for multiline patterns
-          files: |
-             '**/*.sh'
+          since_last_remote_commit: true 
 
-      - name: List all changed files markdown files
+      - name: List all changed files
         env:
-          ALL_CHANGED_FILES: ${{ steps.changed-markdown-files.outputs.all_changed_files }}
+          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
         run: |
           for file in ${ALL_CHANGED_FILES}; do
             echo "$file was changed"

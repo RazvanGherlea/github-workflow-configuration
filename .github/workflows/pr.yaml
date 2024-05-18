@@ -62,11 +62,9 @@ jobs:
           echo "${{ steps.changed_files.outputs.changed_files }}"
 
       # Exporting the changed files pipeline level variable intro the environment
-      - name: Export changed files 
+      - name: PREPARE ENV VAR
         env: 
           CHANGED_FILES_PR:  ${{ steps.changed_files.outputs.changed_files }}
-
-      - name: PREPARE ENV VAR
         shell:  bash
         run: echo "Yeah boyy $CHANGED_FILES_PR"
 

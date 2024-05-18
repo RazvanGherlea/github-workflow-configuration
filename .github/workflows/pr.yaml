@@ -59,7 +59,7 @@ jobs:
       - name: Print changed files
         shell: bash
         run: |
-          echo "${{ steps.changed_files.outputs.changed_files }}"
+          echo "${{ steps.changed_files.outputs }}"
 
       # Exporting the changed files pipeline level variable intro the environment
       - name: PREPARE ENV VAR
@@ -97,7 +97,6 @@ jobs:
         #if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
         run: |
           echo "terragrunt run-all plan --terragrunt-non-interactive" && pwd
-          echo "$needs.Validate.outputs.changed_files"
 
 
 

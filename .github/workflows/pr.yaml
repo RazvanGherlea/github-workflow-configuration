@@ -40,7 +40,7 @@ jobs:
           for file in ${ALL_CHANGED_FILES}; do
             # This is for GLOBAL as china needs different provider (maybe get different provider terragrunt.hcl) 
             for aws_account_name in `jq -r 'keys[]' accounts.json|grep -v china`; do
-              if aws_account_name in files; then
+              if $aws_account_name in $files; then
                 01
               else
                 02

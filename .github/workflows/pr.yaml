@@ -70,44 +70,45 @@ jobs:
         #run: echo "Yeah boyy $CHANGED_FILES_PR"
         run: |
 
-          git diff --name-only|xargs dirname /dev/null/null
+          export TEST=$(git diff --name-only)
+          echo $TEST
 
 
-  terragrunt_plan:
-    name: "Terragrunt plan "
-    runs-on: ubuntu-latest
-    needs: [Validate]
-    # strategy:
-      # matrix:
-      #   # Iterating through hardcoded dir path and comparing changed file
-      #   aws_accounts:
-      #     - name: management-global-prod
-      #       account_id: 211125582498
-      #     - name: network-global-prod
-      #       account_id: 471112563910
-      #     - name: sharedsvc-global-prod
-      #       account_id: 590184046954
-      #     - name: monitoring-global-prod
-      #       account_id: 905418137412
-      #     - name: security-global-prod
-      #       account_id: 851725647430
+  # terragrunt_plan:
+  #   name: "Terragrunt plan "
+  #   runs-on: ubuntu-latest
+  #   needs: [Validate]
+  #   # strategy:
+  #     # matrix:
+  #     #   # Iterating through hardcoded dir path and comparing changed file
+  #     #   aws_accounts:
+  #     #     - name: management-global-prod
+  #     #       account_id: 211125582498
+  #     #     - name: network-global-prod
+  #     #       account_id: 471112563910
+  #     #     - name: sharedsvc-global-prod
+  #     #       account_id: 590184046954
+  #     #     - name: monitoring-global-prod
+  #     #       account_id: 905418137412
+  #     #     - name: security-global-prod
+  #     #       account_id: 851725647430
 
-    defaults:
-      run:
-        shell: bash
+  #   defaults:
+  #     run:
+  #       shell: bash
 
-    steps:
-      - name: 'Plan ${{ matrix.aws_accounts.name }}'
-        #if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
-        run: |
-          echo "terragrunt run-all plan --terragrunt-non-interactive" && pwd
+  #   steps:
+  #     - name: 'Plan ${{ matrix.aws_accounts.name }}'
+  #       #if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
+  #       run: |
+  #         echo "terragrunt run-all plan --terragrunt-non-interactive" && pwd
 
 
 
-  cleanup:
-    runs-on: ubuntu-latest
-    needs: [terragrunt_plan]
-    steps:
-    - name: WS cleanup
-      run: |
-        sudo rm -rf ${{ github.workspace }}/*
+  # cleanup:
+  #   runs-on: ubuntu-latest
+  #   needs: [terragrunt_plan]
+  #   steps:
+  #   - name: WS cleanup
+  #     run: |
+  #       sudo rm -rf ${{ github.workspace }}/*

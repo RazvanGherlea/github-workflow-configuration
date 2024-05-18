@@ -64,10 +64,11 @@ jobs:
 
       # Exporting the changed files pipeline level variable intro the environment
       - name: PREPARE ENV VAR
-        env: 
-          CHANGED_FILES_PR:  ${{ steps.changed_files.outputs.changed_files }}
+        # env: 
+        #   CHANGED_FILES_PR:  ${{ steps.changed_files.outputs.changed_files }}
         shell:  bash
-        run: echo "Yeah boyy $CHANGED_FILES_PR"
+        #run: echo "Yeah boyy $CHANGED_FILES_PR"
+        run: env
 
 
   terragrunt_plan:

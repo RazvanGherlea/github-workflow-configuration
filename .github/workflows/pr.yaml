@@ -70,7 +70,7 @@ jobs:
         #run: echo "Yeah boyy $CHANGED_FILES_PR"
         run: |
 
-          git diff --name-only
+          git diff --name-only|xargs dirname /dev/null/null
 
 
   terragrunt_plan:

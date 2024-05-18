@@ -66,8 +66,9 @@ jobs:
         env: 
           CHANGED_FILES_PR:  ${{ steps.changed_files.outputs.changed_files }}
 
-    outputs:
-      changed_files: echo "Yeah boyy $CHANGED_FILES_PR"
+      - name: PREPARE ENV VAR
+        shell:  bash
+        run: echo "Yeah boyy $CHANGED_FILES_PR"
 
 
   terragrunt_plan:

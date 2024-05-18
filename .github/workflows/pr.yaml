@@ -93,8 +93,8 @@ jobs:
         #if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
         run: |
           echo "terragrunt run-all plan --terragrunt-non-interactive" && pwd
-          echo "${needs.Validate.outputs.changed_files}"
-        working-directory: ${{ matrix.aws_accounts.name }}
+          echo "${{needs.Validate.outputs.changed_files}}"
+
 
 
   cleanup:

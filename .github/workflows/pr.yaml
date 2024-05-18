@@ -59,7 +59,7 @@ jobs:
       - name: Print changed files
         shell: bash
         run: |
-          echo "${{ steps.changed_files }}"
+          echo "${{ steps.changed_files.outputs.changed }}"
 
       # Exporting the changed files pipeline level variable intro the environment
       - name: PREPARE ENV VAR

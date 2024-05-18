@@ -44,6 +44,7 @@ jobs:
                 01
               else:
                 02
+            done
             echo "$file was changed"
           done
 

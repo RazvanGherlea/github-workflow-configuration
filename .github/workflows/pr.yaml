@@ -25,16 +25,34 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v4
 
-      - name: Detect changed files
-        id: changed_files
-        uses: dorny/paths-filter@v3
+      - name: Get all changed markdown files
+        id: changed-markdown-files
+        uses: tj-actions/changed-files@v44
         with:
-          #list-files: 'escape'
-          list-files: shell
-          base: 'main'
-          filters: |
-            changed:
-              - '**/*.sh'
+          # Avoid using single or double quotes for multiline patterns
+          files: |
+             '**/*.sh'
+
+      - name: List all changed files markdown files
+        if: steps.changed-markdown-files.outputs.any_changed == 'true'
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-markdown-files.outputs.all_changed_files }}
+        run: |
+          for file in ${ALL_CHANGED_FILES}; do
+            echo "$file was changed"
+          done
+
+
+      # - name: Detect changed files
+      #   id: changed_files
+      #   uses: dorny/paths-filter@v3
+      #   with:
+      #     #list-files: 'escape'
+      #     list-files: shell
+      #     base: 'main'
+      #     filters: |
+      #       changed:
+      #         - '**/*.sh'
 
       # - name: 'Setup Terraform'
       #   uses: hashicorp/setup-terraform@v2

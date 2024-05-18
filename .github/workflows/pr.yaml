@@ -34,7 +34,6 @@ jobs:
              '**/*.sh'
 
       - name: List all changed files markdown files
-        if: steps.changed-markdown-files.outputs.any_changed == 'true'
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-markdown-files.outputs.all_changed_files }}
         run: |

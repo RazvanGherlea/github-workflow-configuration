@@ -35,19 +35,19 @@ jobs:
             changed:
               - '**/*.hcl'
 
-      - name: 'Setup Terraform'
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.5.1
-          terraform_wrapper: false
+      # - name: 'Setup Terraform'
+      #   uses: hashicorp/setup-terraform@v2
+      #   with:
+      #     terraform_version: 1.5.1
+      #     terraform_wrapper: false
 
-      - name: 'Setup Terragrunt'
-        uses: autero1/action-terragrunt@v1.1.0
-        with:
-          terragrunt_version:  0.48.0
+      # - name: 'Setup Terragrunt'
+      #   uses: autero1/action-terragrunt@v1.1.0
+      #   with:
+      #     terragrunt_version:  0.48.0
 
-      - name: Interact with Terragrunt
-        run: terragrunt --version
+      # - name: Interact with Terragrunt
+      #   run: terragrunt --version
 
       # - name: configure aws credentials
       #   uses: aws-actions/configure-aws-credentials@v2
@@ -59,7 +59,7 @@ jobs:
       - name: Print changed files
         shell: bash
         run: |
-          echo "${{ steps.changed_files.outputs }}"
+          echo "${{ steps.changed_files }}"
 
       # Exporting the changed files pipeline level variable intro the environment
       - name: PREPARE ENV VAR

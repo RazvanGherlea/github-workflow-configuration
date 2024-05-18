@@ -34,7 +34,7 @@ jobs:
           base: 'main'
           filters: |
             changed:
-              - '**/*.hcl'
+              - '**/*.sh'
 
       # - name: 'Setup Terraform'
       #   uses: hashicorp/setup-terraform@v2

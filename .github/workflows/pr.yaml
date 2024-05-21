@@ -40,16 +40,16 @@ jobs:
         run: |
           function execute_trgrnt () {
             echo "########## Terragrunt Operations ###################"
-            echo "terragrunt plan --terragrunt-provider-cache ${MODIFIED_FILES_PATH[@]}"
+            echo "terragrunt plan --terragrunt-provider-cache $1"
           }
           for file in ${ALL_CHANGED_FILES}; do
             for aws_account_name in `jq -r 'keys[]' $JSON_ACC_LIST_PATH|grep -v china`; do
               if [[ $file == *"$aws_account_name"* ]]; then
                 echo "$file is part of the accound $aws_account_name"
-                # MODIFIED_FILES_PATH+=($aws_account_name)
+                MODIFIED_FILES_PATH+=($aws_account_name)
               fi
             done
-          echo $MODIFIED_FILES_PATH
+          execute_trgrnt(MODIFIED_FILES_PATH[@])
 
             
           done

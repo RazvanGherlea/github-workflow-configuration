@@ -42,11 +42,12 @@ jobs:
           MODIFIED_FILES_PATH=()
 
           function execute_trgrnt () {
-            echo "########## Terragrunt Operations ###################"
-            echo "TARGET ENV's: $1"
+            echo "########## Terragrunt Operations ###################\n\n\n"
+            echo "TERRAGRUNT PLAN target environments: ${MODIFIED_FILES_PATH[@]}"
             echo "terragrunt plan --terragrunt-provider-cache ${MODIFIED_FILES_PATH[@]}"
-            echo "####################################################"
+            echo "\n\n\n####################################################"
           }
+          # Perform a reverse search by comparing the existing AWS accounts against the path of edited files
           for file in ${ALL_CHANGED_FILES}; do
             for aws_account_name in `jq -r 'keys[]' $JSON_ACC_LIST_PATH|grep -v china`; do
               if [[ $file == *"$aws_account_name"* ]]; then
@@ -55,11 +56,12 @@ jobs:
               fi
             done            
           done
+          # Exit the pipeline with success if there are no operations to be done in a particular AWS account
           if [[ -z "${MODIFIED_FILES_PATH[@]}" ]]; then
             echo "No file belonging to any aws account has been edited"
           else
             echo "${MODIFIED_FILES_PATH[@]}"
-            execute_trgrnt #"${MODIFIED_FILES_PATH[@]}"
+            execute_trgrnt
           fi
 
 

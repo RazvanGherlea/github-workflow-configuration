@@ -44,7 +44,7 @@ jobs:
           function execute_trgrnt () {
             echo "########## Terragrunt Operations ###################"
             echo "TARGET ENV's: $1"
-            echo "terragrunt plan --terragrunt-provider-cache $1[@]"
+            echo "terragrunt plan --terragrunt-provider-cache ${MODIFIED_FILES_PATH[@]}"
             echo "####################################################"
           }
           for file in ${ALL_CHANGED_FILES}; do
@@ -59,7 +59,7 @@ jobs:
             echo "No file belonging to any aws account has been edited"
           else
             echo "${MODIFIED_FILES_PATH[@]}"
-            execute_trgrnt "${MODIFIED_FILES_PATH[@]}"
+            execute_trgrnt #"${MODIFIED_FILES_PATH[@]}"
           fi
 
 

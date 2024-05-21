@@ -35,16 +35,23 @@ jobs:
       - name: Terragrunt Plan
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+          JSON_ACC_LIST_PATH: accounts.json
+          MODIFIED_FILES_PATH: ()
         run: |
-          echo ${ALL_CHANGED_FILES}
+          function execute_trgrnt () {
+            echo "########## Terragrunt Operations ###################"
+            echo "terragrunt plan --terragrunt-provider-cache ${MODIFIED_FILES_PATH[@]}"
+          }
           for file in ${ALL_CHANGED_FILES}; do
-            # This is for GLOBAL as china needs different provider (maybe get different provider terragrunt.hcl) 
-            for aws_account_name in `jq -r 'keys[]' accounts.json|grep -v china`; do
+            This is for GLOBAL as china needs different provider (maybe get different provider terragrunt.hcl) 
+            for aws_account_name in `jq -r 'keys[]' $JSON_ACC_LIST_PATH|grep -v china`; do
               if [[ $file == *"$aws_account_name"* ]]; then
-                echo "01"
-                echo "$file was changed"
+                echo "$file is part of the accound $aws_account_name"
+                MODIFIED_FILES_PATH.add=($aws_account_name)
               fi
             done
+          echo $MODIFIED_FILES_PATH
+
             
           done
 
@@ -93,7 +100,7 @@ jobs:
         shell:  bash
         #run: echo "Yeah boyy $CHANGED_FILES_PR"
         run: |
-
+          git diff --name-only
           export TEST=$(git diff --name-only)
           echo $TEST
 

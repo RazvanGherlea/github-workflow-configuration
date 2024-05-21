@@ -56,10 +56,10 @@ jobs:
             done            
           done
           if [[ -z "${MODIFIED_FILES_PATH[@]}" ]]; then
-            echo "${MODIFIED_FILES_PATH[@]}"
-            #execute_trgrnt "${MODIFIED_FILES_PATH[@]}"
-          else
             echo "No file belonging to any aws account has been edited"
+          else
+            echo "${MODIFIED_FILES_PATH[@]}"
+            execute_trgrnt "${MODIFIED_FILES_PATH[@]}"
           fi
 
 

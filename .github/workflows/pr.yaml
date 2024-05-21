@@ -37,6 +37,7 @@ jobs:
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
           JSON_ACC_LIST_PATH: accounts.json
         run: |
+          echo $ALL_CHANGED_FILES
           # Arrray containing AWS targed accounts based on modified files
           MODIFIED_FILES_PATH=()
 

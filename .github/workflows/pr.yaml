@@ -53,15 +53,13 @@ jobs:
                 echo "$file is part of the accound $aws_account_name"
                 MODIFIED_FILES_PATH+=($aws_account_name)
               fi
-            done
+            done            
+          done
           if ! [ -z "${MODIFIED_FILES_PATH[@]}" ]; then
             execute_trgrnt "${MODIFIED_FILES_PATH[@]}"
           else
             echo "No file belonging to any aws account has been edited"
           fi
-
-            
-          done
 
 
       # - name: Detect changed files

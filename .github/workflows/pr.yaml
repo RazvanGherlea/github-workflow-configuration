@@ -36,7 +36,7 @@ jobs:
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
           JSON_ACC_LIST_PATH: accounts.json
-          MODIFIED_FILES_PATH: ()
+          MODIFIED_FILES_PATH: (a)
         run: |
           function execute_trgrnt () {
             echo "########## Terragrunt Operations ###################"

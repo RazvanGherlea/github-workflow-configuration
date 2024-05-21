@@ -44,7 +44,7 @@ jobs:
           function execute_trgrnt () {
             echo "########## Terragrunt Operations ###################"
             echo "TARGET ENV's: $1"
-            echo "terragrunt plan --terragrunt-provider-cache $1"
+            echo "terragrunt plan --terragrunt-provider-cache $1[@]"
             echo "####################################################"
           }
           for file in ${ALL_CHANGED_FILES}; do

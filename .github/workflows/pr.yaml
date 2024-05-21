@@ -49,7 +49,7 @@ jobs:
                 MODIFIED_FILES_PATH+=($aws_account_name)
               fi
             done
-          execute_trgrnt($MODIFIED_FILES_PATH[@])
+          execute_trgrnt(${MODIFIED_FILES_PATH[@]})
 
             
           done

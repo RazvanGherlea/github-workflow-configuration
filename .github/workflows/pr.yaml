@@ -46,7 +46,7 @@ jobs:
             for aws_account_name in `jq -r 'keys[]' $JSON_ACC_LIST_PATH|grep -v china`; do
               if [[ $file == *"$aws_account_name"* ]]; then
                 echo "$file is part of the accound $aws_account_name"
-                MODIFIED_FILES_PATH.add=($aws_account_name)
+                MODIFIED_FILES_PATH.add=(${aws_account_name})
               fi
             done
           echo $MODIFIED_FILES_PATH

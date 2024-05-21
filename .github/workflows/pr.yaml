@@ -36,11 +36,15 @@ jobs:
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
           JSON_ACC_LIST_PATH: accounts.json
-          MODIFIED_FILES_PATH: (a)
         run: |
+          # Arrray containing AWS targed accounts based on modified files
+          MODIFIED_FILES_PATH=()
+
           function execute_trgrnt () {
             echo "########## Terragrunt Operations ###################"
+            echo "TARGET ENV's: $1"
             echo "terragrunt plan --terragrunt-provider-cache $1"
+            echo "####################################################"
           }
           for file in ${ALL_CHANGED_FILES}; do
             for aws_account_name in `jq -r 'keys[]' $JSON_ACC_LIST_PATH|grep -v china`; do
@@ -49,7 +53,11 @@ jobs:
                 MODIFIED_FILES_PATH+=($aws_account_name)
               fi
             done
-          execute_trgrnt "${MODIFIED_FILES_PATH[@]}"
+          if ! [ -z "${VAR}" ]; then
+            execute_trgrnt "${MODIFIED_FILES_PATH[@]}"
+          else
+            echo "No file belonging to any aws account has been edited"
+          fi
 
             
           done

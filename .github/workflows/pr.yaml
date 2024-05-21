@@ -55,7 +55,7 @@ jobs:
               fi
             done            
           done
-          if ! [ -z "${MODIFIED_FILES_PATH[@]}" ]; then
+          if [[ -z "${MODIFIED_FILES_PATH[@]}" ]]; then
             echo "${MODIFIED_FILES_PATH[@]}"
             #execute_trgrnt "${MODIFIED_FILES_PATH[@]}"
           else

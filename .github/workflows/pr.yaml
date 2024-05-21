@@ -53,7 +53,7 @@ jobs:
                 MODIFIED_FILES_PATH+=($aws_account_name)
               fi
             done
-          if ! [ -z "${VAR}" ]; then
+          if [ -z "${VAR}" ]; then
             execute_trgrnt "${MODIFIED_FILES_PATH[@]}"
           else
             echo "No file belonging to any aws account has been edited"

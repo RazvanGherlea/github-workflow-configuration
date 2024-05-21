@@ -43,7 +43,6 @@ jobs:
             echo "terragrunt plan --terragrunt-provider-cache ${MODIFIED_FILES_PATH[@]}"
           }
           for file in ${ALL_CHANGED_FILES}; do
-            This is for GLOBAL as china needs different provider (maybe get different provider terragrunt.hcl) 
             for aws_account_name in `jq -r 'keys[]' $JSON_ACC_LIST_PATH|grep -v china`; do
               if [[ $file == *"$aws_account_name"* ]]; then
                 echo "$file is part of the accound $aws_account_name"

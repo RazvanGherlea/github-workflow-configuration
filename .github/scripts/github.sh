@@ -3,6 +3,11 @@
 # Arrray containing AWS targed accounts based on modified files
 MODIFIED_FILES_PATH=()
 
+green() {
+    echo -e "\e[32m${1}\e[0m"
+}
+
+
 # Validate each edited file and decide where terragrunt should be executed
 # This helps to control PR execution time 
 function aws_accounts_terragrunt_include () {
@@ -31,7 +36,7 @@ function trigger_terragrunt_cli () {
 
         ########## Terragrunt Operations #############################################
 
-        TERRAGRUNT PLAN target environments: ${MODIFIED_FILES_PATH[@]}
+        TERRAGRUNT PLAN target environments: echo -e "\e[32m${MODIFIED_FILES_PATH[@]}\e[0m"}
 
         ################################################################################
 

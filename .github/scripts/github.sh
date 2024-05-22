@@ -34,9 +34,9 @@ function trigger_terragrunt_cli () {
 
     cat <<__USAGE__
 
-        ########## Terragrunt Operations #############################################
+        ########## $(echo -e "\e[31mTerragrunt Operations\e[0m") #############################################
 
-        TERRAGRUNT PLAN target environments: $(echo -e "\e[32m${MODIFIED_FILES_PATH[@]}\e[0m")}
+        TERRAGRUNT PLAN target environments: $(echo -e "\e[32m${MODIFIED_FILES_PATH[@]}\e[0m")
 
         ################################################################################
 

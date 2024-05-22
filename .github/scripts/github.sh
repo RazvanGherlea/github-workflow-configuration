@@ -15,14 +15,14 @@ function aws_accounts_terragrunt_include () {
     if [[ $(echo $SET_RUNNER_CHINA) == true ]]; then
         for aws_account_name in `jq -r 'keys[]' $JSON_ACC_LIST_PATH|grep -i china`; do
             if [[ $1 == *"$aws_account_name"* ]]; then
-                echo "$1 is part of the accound $aws_account_name"
+                # echo "$1 is part of the accound $aws_account_name"
                 MODIFIED_FILES_PATH+=($aws_account_name)
             fi
         done
     else
         for aws_account_name in `jq -r 'keys[]' $JSON_ACC_LIST_PATH|grep -v china`; do
             if [[ $1 == *"$aws_account_name"* ]]; then
-                echo "$1 is part of the accound $aws_account_name"
+                # echo "$1 is part of the accound $aws_account_name"
                 MODIFIED_FILES_PATH+=($aws_account_name)
             fi
         done

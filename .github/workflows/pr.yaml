@@ -38,7 +38,7 @@ jobs:
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
           JSON_ACC_LIST_PATH: accounts.json
           SET_RUNNER_LOCATION: 0
-        run: .scripts/github.sh
+        run: .github/scripts/github.sh
 
 
       # - name: Detect changed files

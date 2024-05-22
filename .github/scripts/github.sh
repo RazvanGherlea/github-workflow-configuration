@@ -36,7 +36,7 @@ function trigger_terragrunt_cli () {
 
         ########## Terragrunt Operations #############################################
 
-        TERRAGRUNT PLAN target environments: echo -e "\e[32m${MODIFIED_FILES_PATH[@]}\e[0m"}
+        TERRAGRUNT PLAN target environments: $(echo -e "\e[32m${MODIFIED_FILES_PATH[@]}\e[0m")}
 
         ################################################################################
 

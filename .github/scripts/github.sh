@@ -26,7 +26,7 @@ function aws_accounts_terragrunt_include () {
     #     done
     # fi
     # echo "::set-output name=trigger_china_pipeline::true"
-    echo "trigger_china_pipeline=true" >> $GITHUB_OUTPUT
+    
 }
 
 # Execute terragrunt plan simultaneously on the target aws accounts 
@@ -51,10 +51,12 @@ for file in ${ALL_CHANGED_FILES}; do
     aws_accounts_terragrunt_include $file
 done
 
-# Exit the pipeline with success if there are no operations to be done in a particular AWS account
-if [[ -z "${MODIFIED_FILES_PATH[@]}" ]]; then
-    echo "No file belonging to any aws account has been edited"
-else
-    echo "${MODIFIED_FILES_PATH[@]}"
-    trigger_terragrunt_cli
-fi
+# # Exit the pipeline with success if there are no operations to be done in a particular AWS account
+# if [[ -z "${MODIFIED_FILES_PATH[@]}" ]]; then
+#     echo "No file belonging to any aws account has been edited"
+# else
+#     echo "${MODIFIED_FILES_PATH[@]}"
+#     trigger_terragrunt_cli
+# fi
+
+echo "trigger_china_pipeline=true" >> $GITHUB_OUTPUT

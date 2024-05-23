@@ -51,7 +51,7 @@ jobs:
     needs: [Validate]
     env:
       SELECTED_COLOR: ${{ needs.Validate.outputs.trigger_china_pipeline }}
-    if: ${{ SELECTED_COLOR == 'true' }}
+    if: SELECTED_COLOR == 'true'
     # strategy:
       # matrix:
       #   # Iterating through hardcoded dir path and comparing changed file

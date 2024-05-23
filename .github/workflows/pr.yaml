@@ -39,6 +39,9 @@ jobs:
           JSON_ACC_LIST_PATH: accounts.json
           # SET_RUNNER_CHINA: true
         run: /bin/bash .github/scripts/github.sh
+      
+      # - name: validate argumet passing
+      #   run: 
 
 
 
@@ -46,7 +49,9 @@ jobs:
     name: "Terragrunt plan "
     runs-on: ubuntu-latest
     needs: [Validate]
-    if: ${{ needs.Validate.outputs.trigger_china_pipeline == 'true' }}
+    env:
+      SELECTED_COLOR: ${{ needs.Validate.outputs.trigger_china_pipeline }}
+    if: ${{ $SELECTED_COLOR == 'true' }}
     # strategy:
       # matrix:
       #   # Iterating through hardcoded dir path and comparing changed file

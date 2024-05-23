@@ -18,6 +18,9 @@ env:
 
 jobs:
   Validate:
+    defaults:
+      run:
+        shell: bash
     name: "Get changed files from the PullRequest stage"
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -80,6 +83,7 @@ jobs:
 
     steps:
       - name: 'Plan ${{ matrix.aws_accounts.name }}'
+        id: terragrunt_plan
         env:
             SELECTED_COLOR: ${{ needs.Validate.aws-target-account-finder.outputs.trigger_china }}
         #if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )

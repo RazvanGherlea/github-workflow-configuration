@@ -1,0 +1,67 @@
+{
+    "management-global-prod": {
+      "deploy_order": 0,
+      "id": "muie"
+    },
+    "network-global-prod": {
+      "deploy_order": 0,
+      "id": "muie"
+    },
+    "sharedsvc-global-prod": {
+      "deploy_order": 0,
+      "id": "muie"
+    },
+    "monitoring-global-prod": {
+      "deploy_order": 0,
+      "id": "muie"
+    },
+    "security-global-prod": {
+      "deploy_order": 0,
+      "id": "muie"
+    },
+    "inframgt-global-prod": {
+      "deploy_order": 0,
+      "id": "muie"
+    },
+    "bastion-global-prod": {
+      "deploy_order": 0,
+      "id": "muie"
+    },
+    "netskope-global-prod": {
+      "deploy_order": 0,
+      "id": "muie"
+    },
+    "filenprint-global-prod": {
+      "deploy_order": 0,
+      "id": "muie"
+    },
+    "management-china-prod": {
+      "deploy_order": 0,
+      "id": "muie"
+    },
+    "filenprint-china-prod": {
+      "deploy_order": 0,
+      "id": "muie"
+    },
+    "netskope-china-prod": {
+      "deploy_order": 0,
+      "id": "muie"
+    },
+    "network-china-prod": {
+      "deploy_order": 0,
+      "id": "muie"
+    },
+    "sharedsvc-china-prod": {
+      "deploy_order": 0,
+      "id": "muie"
+    },
+    "monitoring-china-prod": {
+      "deploy_order": 0,
+      "id": "muie"
+    },
+    "security-china-prod": {
+      "deploy_order": 0,
+      "id": "muie"
+    }
+  }
+  

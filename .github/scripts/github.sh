@@ -25,7 +25,7 @@ function aws_accounts_terragrunt_include () {
     #         fi
     #     done
     # fi
-    echo "::set-output china=trigger_china_pipeline::true"
+    echo "::set-output name=trigger_china_pipeline::true"
 }
 
 # Execute terragrunt plan simultaneously on the target aws accounts 

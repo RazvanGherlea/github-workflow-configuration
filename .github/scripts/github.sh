@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Settings
+regex_validate_aws_region="^[a-z]{2}-[a-z]+-[[:digit:]]{1,2}$"
+
 # Arrray's containing AWS targed accounts based on modified files
 MODIFIED_FILES_PATH_GLOBAL=()
 MODIFIED_FILES_PATH_CHINA=()
@@ -13,7 +16,20 @@ green() {
 function aws_accounts_terragrunt_include () {
     # Determine if file felongs to China AWS Accounts
     current_file=$1
-    echo $current_file
+
+    # Split string and validate that file belongs to a AWS account
+    _aws_account_name=$(echo $current_file | cut -d '/' -f 1)
+    _aws_region_name=$(echo $current_file | cut -d '/' -f 2)
+
+    # echo $_aws_region_name|grep -q $regex_exp_region
+    # echo $?
+
+    if [[ "$_aws_region_name" =~ $regex_exp_region ]]; then
+        echo -e "\e[32m$current_file\e[0m is part of the $_aws_account_name AWS account in region $_aws_region_name"
+    else
+        echo -e "\e[31m$string\e[0m does not appear to contain any region. Ignoring $string"
+    fi
+
     # Select AWS account names and exclude china
     # if [[ $(echo $SET_RUNNER_CHINA) == true ]]; then
     #     for aws_account_name in `jq -r 'keys[]' $JSON_ACC_LIST_PATH|grep -i china`; do
@@ -62,4 +78,4 @@ done
 #     trigger_terragrunt_cli
 # fi
 
-echo "trigger_china_pipeline=false" >> $GITHUB_OUTPUT
+#echo "trigger_china_pipeline=false" >> $GITHUB_OUTPUT

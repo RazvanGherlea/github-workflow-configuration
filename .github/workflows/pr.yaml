@@ -44,11 +44,10 @@ jobs:
           # SET_RUNNER_CHINA: true
         run: /bin/bash .github/scripts/github.sh
 
-
-      # - name: export variable outpuit
-      #   env:
-      #     SELECTED_COLOR: ${{ steps.aws-target-account-finder.outputs.trigger_china_pipeline }}
-      #   run: echo "The selected color is $SELECTED_COLOR"
+      - name: export variable outpuit
+        env:
+          SELECTED_COLOR: ${{ steps.aws-target-account-finder.outputs.trigger_china_pipeline }}
+        run: echo "The selected color is $SELECTED_COLOR"
       
     outputs:
       trigger_china: ${{ steps.aws-target-account-finder.outputs.trigger_china_pipeline }}

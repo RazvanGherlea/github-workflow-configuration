@@ -24,5 +24,6 @@ __USAGE__
 echo $1
 # Look through the results and perform terragrunt plan
 for aws_account in $1: do
-    trigger_terragrunt_cli $aws_account
+    echo $aws_account 
+    #trigger_terragrunt_cli $aws_account
 done

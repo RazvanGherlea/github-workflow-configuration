@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [Validate]
     #if: ${{ needs.Validate.outputs.trigger_china == true }}
-    if: ${{ needs.Validate.outputs.GLOBAL_RUNNER_AWS_TAARGET_ACCOUNT != '' }}
+    if: ${{ needs.Validate.outputs.validation_empty_array != '' }}
     # if: ${{ needs.Validate.outputs.trigger_china_pipeline == true }}
     # if: ${{ needs.Validate.aws-target-account-finder.outputs.trigger_china_pipeline == 'true' }} 
     # strategy:

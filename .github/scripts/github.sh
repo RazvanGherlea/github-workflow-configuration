@@ -31,6 +31,7 @@ function aws_accounts_terragrunt_include () {
         else
             # Add AWS target account to be executed from GLOBAL self hosted runner
             MODIFIED_FILES_PATH_GLOBAL+=($_aws_account_name)
+        fi
     else
         echo -e "\e[31m$current_file\e[0m does not appear to contain any region. Ignoring $string"
     fi

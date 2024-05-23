@@ -42,14 +42,14 @@ jobs:
         run: /bin/bash .github/scripts/github.sh
 
 
-      - name: export variable outpuit
-        env:
-          SELECTED_COLOR: ${{ steps.aws-target-account-finder.outputs.trigger_china_pipeline }}
-        run: echo "The selected color is $SELECTED_COLOR"
+      # - name: export variable outpuit
+      #   env:
+      #     SELECTED_COLOR: ${{ steps.aws-target-account-finder.outputs.trigger_china_pipeline }}
+      #   run: echo "The selected color is $SELECTED_COLOR"
       
     outputs:
-      trigger_china_pipeline: ${{ steps.aws-target-account-finder.outputs.trigger_china_pipeline }}
-      trigger_global_pipeline: ${{ steps.aws-target-account-finder.outputs.trigger_china_pipeline }}
+      trigger_china: ${{ steps.aws-target-account-finder.outputs.trigger_china_pipeline }}
+      #trigger_global_pipeline: ${{ steps.aws-target-account-finder.outputs.trigger_china_pipeline }}
 
 
 
@@ -81,7 +81,7 @@ jobs:
     steps:
       - name: 'Plan ${{ matrix.aws_accounts.name }}'
         env:
-            SELECTED_COLOR: ${{ needs.Validate.aws-target-account-finder.outputs.trigger_china_pipeline }}
+            SELECTED_COLOR: ${{ needs.Validate.aws-target-account-finder.outputs.trigger_china }}
         #if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
         run: |
           #if:echo "terragrunt run-all plan --terragrunt-non-interactive" && pwd

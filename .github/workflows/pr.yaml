@@ -32,12 +32,8 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v44
-        # To compare changes between the current commit and 
-        #   the last pushed remote commit set `since_last_remote_commit: true`. e.g
-        # with:
-        #   since_last_remote_commit: true 
 
-      - name: Terragrunt Plan Global
+      - name: Select AWS target accounts for planning
         id: aws-target-account-finder
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
@@ -51,15 +47,11 @@ jobs:
         run: echo "The selected color is $CHINA_RUNNER_AWS_TAARGET_ACCOUNT $GLOBAL_RUNNER_AWS_TAARGET_ACCOUNT"
       
 
-      #trigger_global_pipeline: ${{ steps.aws-target-account-finder.outputs.trigger_china_pipeline }}
-
-
 
   terragrunt_plan_global:
     name: "Terragrunt plan Global"
     runs-on: ubuntu-latest
     needs: [Validate]
-    #if: ${{ needs.Validate.outputs.trigger_china == true }}
     if: ${{ needs.Validate.outputs.GLOBAL_RUNNER_AWS_TAARGET_ACCOUNT != '' }}
 
     defaults:

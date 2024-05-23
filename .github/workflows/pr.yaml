@@ -12,9 +12,6 @@ permissions:
   contents: read
   pull-requests: read
 
-env:
-  iam_doer_role_name: "infrastructure-doer-role"
-  aws_region: "eu-central-1"
 
 jobs:
   Validate:
@@ -85,8 +82,8 @@ jobs:
       - name: 'Plan ${{ matrix.aws_accounts.name }}'
         id: terragrunt_plan
         env:
-            SELECTED_COLOR: ${{ needs.Validate.aws-target-account-finder.outputs.trigger_china }}
-            SELECTED_COLOR_1: ${{ needs.Validate.aws-target-account-finder }}
+            SELECTED_COLOR: ${{ needs.Validate.outputs.trigger_china }}
+            SELECTED_COLOR_1: ${{ needs.Validate.outputs }}
         #if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
         run: |
           echo $SELECTED_COLOR $SELECTED_COLOR_1

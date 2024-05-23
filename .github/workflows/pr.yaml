@@ -86,10 +86,10 @@ jobs:
       - name: 'Plan ${{ matrix.aws_accounts.name }}'
         id: terragrunt_plan
         env:
-            SELECTED_COLOR: ${{ needs.Validate.outputs.trigger_china }}
+            GLOBAL_RUNNER_AWS_TAARGET_ACCOUNT: ${{ needs.Validate.outputs.GLOBAL_RUNNER_AWS_TAARGET_ACCOUNT }}
         #if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
         run: |
-          echo $SELECTED_COLOR 
+          echo "Terragrunt plan --bla $GLOBAL_RUNNER_AWS_TAARGET_ACCOUNT"
 
 
   terragrunt_plan_china:

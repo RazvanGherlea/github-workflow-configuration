@@ -40,6 +40,7 @@ jobs:
           JSON_ACC_LIST_PATH: accounts.json
           # SET_RUNNER_CHINA: true
         run: /bin/bash .github/scripts/github.sh
+        
 
       - name: export variable outpuit
         env:

@@ -86,10 +86,10 @@ jobs:
         id: terragrunt_plan
         env:
             SELECTED_COLOR: ${{ needs.Validate.aws-target-account-finder.outputs.trigger_china }}
+            SELECTED_COLOR_1: ${{ needs.Validate.aws-target-account-finder.outputs }}
         #if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
         run: |
-          #if:echo "terragrunt run-all plan --terragrunt-non-interactive" && pwd
-          echo $SELECTED_COLOR
+          echo $SELECTED_COLOR $SELECTED_COLOR_1
 
 
 

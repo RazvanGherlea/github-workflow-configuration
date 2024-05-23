@@ -21,7 +21,7 @@ __USAGE__
         --terragrunt-provider-cache \
         --terragrunt-working-dir $i
 }
-
+echo $1
 # Look through the results and perform terragrunt plan
 for aws_account in $1: do
     trigger_terragrunt_cli $aws_account

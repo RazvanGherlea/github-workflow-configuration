@@ -54,4 +54,4 @@ echo "${MODIFIED_FILES_PATH_CHINA[@]}"
 
 echo "GLOBAL_RUNNER_AWS_TAARGET_ACCOUNT=${MODIFIED_FILES_PATH_GLOBAL[@]}" >> $GITHUB_OUTPUT
 echo "CHINA_RUNNER_AWS_TAARGET_ACCOUNT=${MODIFIED_FILES_PATH_GLOBAL[@]}" >> $GITHUB_OUTPUT
-echo "validation_empty_array=${validation_empty_array[@]}"
+echo "validation_empty_array=${validation_empty_array[@]}" >> $GITHUB_OUTPUT

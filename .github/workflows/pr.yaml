@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [Validate]
     # if: ${{ needs.Validate.outputs.trigger_china_pipeline == true }}
-    if: ${{ needs.Validate.outputs.trigger_china_pipeline == 'true' }} 
+    if: ${{ needs.Validate.aws-target-account-finder.outputs.trigger_china_pipeline == 'true' }} 
     # strategy:
       # matrix:
       #   # Iterating through hardcoded dir path and comparing changed file

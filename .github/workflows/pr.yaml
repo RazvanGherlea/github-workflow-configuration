@@ -83,10 +83,9 @@ jobs:
         id: terragrunt_plan
         env:
             SELECTED_COLOR: ${{ needs.Validate.outputs.trigger_china }}
-            SELECTED_COLOR_1: ${{ needs.Validate.outputs }}
         #if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
         run: |
-          echo $SELECTED_COLOR $SELECTED_COLOR_1
+          echo $SELECTED_COLOR 
 
 
 

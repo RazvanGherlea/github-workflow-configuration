@@ -23,9 +23,6 @@ __USAGE__
 }
 
 # Look through the results and perform terragrunt plan
-function trigger_terraform_with_loop() {
-    for aws_account in $1: do
-        trigger_terragrunt_cli $aws_account
-    done
-
-}
+for aws_account in $1: do
+    trigger_terragrunt_cli $aws_account
+done

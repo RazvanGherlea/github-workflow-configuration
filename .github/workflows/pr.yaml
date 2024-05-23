@@ -59,11 +59,11 @@ jobs:
         shell: bash
 
     steps:
-      - name: 'Plan ${{ matrix.aws_accounts.name }}'
+      - name: 'Plan'
         id: terragrunt_plan
         env:
             GLOBAL_RUNNER_AWS_TARGET_ACCOUNT: ${{ needs.Validate.outputs.GLOBAL_RUNNER_AWS_TARGET_ACCOUNT }}
-        run: /bin/bash .github/scripts/terragrunt_plan.sh $GLOBAL_RUNNER_AWS_TARGET_ACCOUNT
+        run: /bin/bash .github/scripts/terragrunt_plan.sh "$GLOBAL_RUNNER_AWS_TARGET_ACCOUNT"
 
 
   terragrunt_plan_china:
@@ -77,9 +77,9 @@ jobs:
         shell: bash
 
     steps:
-      - name: 'Plan ${{ matrix.aws_accounts.name }}'
+      - name: 'Plan'
         id: terragrunt_plan
         env:
             CHINA_RUNNER_AWS_TARGET_ACCOUNT: ${{ needs.Validate.outputs.CHINA_RUNNER_AWS_TARGET_ACCOUNT }}
-        run: /bin/bash .github/scripts/terragrunt_plan.sh $CHINA_RUNNER_AWS_TARGET_ACCOUNT
+        run: /bin/bash .github/scripts/terragrunt_plan.sh "$CHINA_RUNNER_AWS_TARGET_ACCOUNT"
 

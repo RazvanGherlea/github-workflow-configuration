@@ -11,6 +11,9 @@ green() {
 
 # Iterate through the changed files and select target AWS accounts for execution (uniq)
 function aws_accounts_terragrunt_include () {
+    # Determine if file felongs to China AWS Accounts
+    current_file=$1
+    echo $current_file
     # Select AWS account names and exclude china
     # if [[ $(echo $SET_RUNNER_CHINA) == true ]]; then
     #     for aws_account_name in `jq -r 'keys[]' $JSON_ACC_LIST_PATH|grep -i china`; do
@@ -26,7 +29,7 @@ function aws_accounts_terragrunt_include () {
     #     done
     # fi
     # echo "::set-output name=trigger_china_pipeline::true"
-    echo "a"
+
 }
 
 # Execute terragrunt plan simultaneously on the target aws accounts 

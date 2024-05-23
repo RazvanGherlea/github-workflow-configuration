@@ -8,7 +8,7 @@ function trigger_terragrunt_cli () {
 
         ########## $(echo -e "\e[31mTerragrunt Operations\e[0m") #############################################
 
-        TERRAGRUNT PLAN target environment: $(echo -e "\e[32m$i\e[0m")
+        TERRAGRUNT PLAN target environment: $(echo -e "\e[32m$1\e[0m")
 
         ################################################################################
 
@@ -19,11 +19,11 @@ __USAGE__
         -lock=false -refresh=false \
         --terragrunt-include-external-dependencies \
         --terragrunt-provider-cache \
-        --terragrunt-working-dir $i
+        --terragrunt-working-dir $1
 }
-echo $1
+aws_accounts_list=$1
 # Look through the results and perform terragrunt plan
-for aws_account in $1: do
+for aws_account in $aws_accounts_list; do
     echo $aws_account 
-    #trigger_terragrunt_cli $aws_account
+    trigger_terragrunt_cli $aws_account
 done

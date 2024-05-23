@@ -27,7 +27,7 @@ function aws_accounts_terragrunt_include () {
     if [[ "$_aws_region_name" =~ $regex_validate_aws_region ]]; then
         echo -e "\e[32m$current_file\e[0m is part of the $_aws_account_name AWS account in region $_aws_region_name"
     else
-        echo -e "\e[31m$string\e[0m does not appear to contain any region. Ignoring $string"
+        echo -e "\e[31m$current_file\e[0m does not appear to contain any region. Ignoring $string"
     fi
 
     # Select AWS account names and exclude china

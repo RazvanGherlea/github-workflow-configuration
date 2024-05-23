@@ -6,6 +6,7 @@ regex_validate_aws_region="^[a-z]{2}-[a-z]+-[[:digit:]]{1,2}$"
 # Arrray's containing AWS targed accounts based on modified files
 MODIFIED_FILES_PATH_GLOBAL=()
 MODIFIED_FILES_PATH_CHINA=()
+validation_empty_array=()
 
 
 # Iterate through the changed files and select target AWS accounts for execution (uniq)
@@ -48,9 +49,9 @@ for file in ${ALL_CHANGED_FILES}; do
 done
 
 
-
 echo "${MODIFIED_FILES_PATH_GLOBAL[@]}"
 echo "${MODIFIED_FILES_PATH_CHINA[@]}"
 
 echo "GLOBAL_RUNNER_AWS_TAARGET_ACCOUNT=${MODIFIED_FILES_PATH_GLOBAL[@]}" >> $GITHUB_OUTPUT
 echo "CHINA_RUNNER_AWS_TAARGET_ACCOUNT=${MODIFIED_FILES_PATH_GLOBAL[@]}" >> $GITHUB_OUTPUT
+echo "validation_empty_array=${validation_empty_array[@]}"

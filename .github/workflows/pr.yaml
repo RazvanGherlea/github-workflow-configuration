@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [Validate]
     # if: ${{ needs.Validate.outputs.trigger_china_pipeline == true }}
-    if: ${{ needs.Validate.aws-target-account-finder.outputs.trigger_china_pipeline == 'true' }} 
+    # if: ${{ needs.Validate.aws-target-account-finder.outputs.trigger_china_pipeline == 'true' }} 
     # strategy:
       # matrix:
       #   # Iterating through hardcoded dir path and comparing changed file
@@ -78,9 +78,12 @@ jobs:
 
     steps:
       - name: 'Plan ${{ matrix.aws_accounts.name }}'
+        env:
+            SELECTED_COLOR: ${{ needs.Validate.aws-target-account-finder.outputs.trigger_china_pipeline }}
         #if: contains( needs.Validate.outputs.changed_files, matrix.aws_accounts.name )
         run: |
           echo "terragrunt run-all plan --terragrunt-non-interactive" && pwd
+          echo $SELECTED_COLOR
 
 
 

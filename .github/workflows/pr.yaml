@@ -39,14 +39,13 @@ jobs:
         id: aws-target-account-finder
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
-          JSON_ACC_LIST_PATH: accounts.json
-          # SET_RUNNER_CHINA: true
         run: /bin/bash .github/scripts/github.sh
 
       - name: export variable outpuit
         env:
-          SELECTED_COLOR: ${{ steps.aws-target-account-finder.outputs.trigger_china_pipeline }}
-        run: echo "The selected color is $SELECTED_COLOR"
+          GLOBAL_RUNNER_AWS_TAARGET_ACCOUNT: ${{ steps.aws-target-account-finder.outputs.GLOBAL_RUNNER_AWS_TAARGET_ACCOUNT }}
+          CHINA_RUNNER_AWS_TAARGET_ACCOUNT: ${{ steps.aws-target-account-finder.outputs.CHINA_RUNNER_AWS_TAARGET_ACCOUNT }}
+        run: echo "The selected color is $CHINA_RUNNER_AWS_TAARGET_ACCOUNT $GLOBAL_RUNNER_AWS_TAARGET_ACCOUNT"
       
 
       #trigger_global_pipeline: ${{ steps.aws-target-account-finder.outputs.trigger_china_pipeline }}

@@ -7,10 +7,6 @@ regex_validate_aws_region="^[a-z]{2}-[a-z]+-[[:digit:]]{1,2}$"
 MODIFIED_FILES_PATH_GLOBAL=()
 MODIFIED_FILES_PATH_CHINA=()
 
-green() {
-    echo -e "\e[32m${1}\e[0m"
-}
-
 
 # Iterate through the changed files and select target AWS accounts for execution (uniq)
 function aws_accounts_terragrunt_include () {
@@ -28,14 +24,14 @@ function aws_accounts_terragrunt_include () {
         if [[ $_aws_account_name == *china* ]]; then
             # Add AWS target account to be executed from CHINA self hosted runner
             if [[ ${MODIFIED_FILES_PATH_CHINA[@]} =~ $_aws_account_name ]]; then
-                echo "AWS environment $_aws_account_name is already tageted for planning. Skipping"
+                echo "AWS environment $_aws_account_name is already targeted for planning. Skipping"
             else
                 MODIFIED_FILES_PATH_CHINA+=($_aws_account_name)
             fi
         else
             # Add AWS target account to be executed from GLOBAL self hosted runner
             if [[ ${MODIFIED_FILES_PATH_GLOBAL[@]} =~ $_aws_account_name ]]; then
-                echo "AWS environment $_aws_account_name is already tageted for planning. Skipping"
+                echo "AWS environment $_aws_account_name is already targeted for planning. Skipping"
             else
                 MODIFIED_FILES_PATH_GLOBAL+=($_aws_account_name)
             fi
@@ -44,39 +40,6 @@ function aws_accounts_terragrunt_include () {
         echo -e "\e[31m$current_file\e[0m does not appear to contain any region. Ignoring $string"
     fi
 
-    # Select AWS account names and exclude china
-    # if [[ $(echo $SET_RUNNER_CHINA) == true ]]; then
-    #     for aws_account_name in `jq -r 'keys[]' $JSON_ACC_LIST_PATH|grep -i china`; do
-    #         if [[ $1 == *"$aws_account_name"* ]]; then
-    #             MODIFIED_FILES_PATH+=($aws_account_name)
-    #         fi
-    #     done
-    # else
-    #     for aws_account_name in `jq -r 'keys[]' $JSON_ACC_LIST_PATH|grep -v china`; do
-    #         if [[ $1 == *"$aws_account_name"* ]]; then
-    #             MODIFIED_FILES_PATH+=($aws_account_name)
-    #         fi
-    #     done
-    # fi
-    # echo "::set-output name=trigger_china_pipeline::true"
-
-}
-
-# Execute terragrunt plan simultaneously on the target aws accounts 
-function trigger_terragrunt_cli () {
-
-    cat <<__USAGE__
-
-        ########## $(echo -e "\e[31mTerragrunt Operations\e[0m") #############################################
-
-        TERRAGRUNT PLAN target environments: $(echo -e "\e[32m${MODIFIED_FILES_PATH[@]}\e[0m")
-
-        ################################################################################
-
-__USAGE__
-
-
-    echo "terragrunt plan --terragrunt-include-dir ${MODIFIED_FILES_PATH[@]}"
 }
 
 # Perform a reverse search by comparing the AWS accounts listed in accounts.json against the path of edited files
@@ -84,15 +47,10 @@ for file in ${ALL_CHANGED_FILES}; do
     aws_accounts_terragrunt_include $file
 done
 
-# # Exit the pipeline with success if there are no operations to be done in a particular AWS account
-# if [[ -z "${MODIFIED_FILES_PATH[@]}" ]]; then
-#     echo "No file belonging to any aws account has been edited"
-# else
-#     echo "${MODIFIED_FILES_PATH[@]}"
-#     trigger_terragrunt_cli
-# fi
 
-#echo "trigger_china_pipeline=false" >> $GITHUB_OUTPUT
 
-echo "${MODIFIED_FILES_PATH_GLOBAL[@]}"|sort -u
+echo "${MODIFIED_FILES_PATH_GLOBAL[@]}"
 echo "${MODIFIED_FILES_PATH_CHINA[@]}"
+
+EXPORT "GLOBAL_RUNNER_AWS_TAARGET_ACCOUNT=${MODIFIED_FILES_PATH_GLOBAL[@]}" >> $GITHUB_OUTPUT
+EXPORT "CHINA_RUNNER_AWS_TAARGET_ACCOUNT=${MODIFIED_FILES_PATH_GLOBAL[@]}" >> $GITHUB_OUTPUT

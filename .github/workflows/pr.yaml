@@ -63,7 +63,7 @@ jobs:
         id: terragrunt_plan
         env:
             GLOBAL_RUNNER_AWS_TARGET_ACCOUNT: ${{ needs.Validate.outputs.GLOBAL_RUNNER_AWS_TARGET_ACCOUNT }}
-        run: /bin/bash .github/scripts/terragrunt_plan.sh $GLOBAL_RUNNER_AWS_TARGET_ACCOUNT
+        run: .github/scripts/terragrunt_plan.sh $GLOBAL_RUNNER_AWS_TARGET_ACCOUNT
 
 
   terragrunt_plan_china:
@@ -81,5 +81,5 @@ jobs:
         id: terragrunt_plan
         env:
             CHINA_RUNNER_AWS_TARGET_ACCOUNT: ${{ needs.Validate.outputs.CHINA_RUNNER_AWS_TARGET_ACCOUNT }}
-        run: /bin/bash .github/scripts/terragrunt_plan.sh $CHINA_RUNNER_AWS_TARGET_ACCOUNT
+        run: .github/scripts/terragrunt_plan.sh $CHINA_RUNNER_AWS_TARGET_ACCOUNT
 

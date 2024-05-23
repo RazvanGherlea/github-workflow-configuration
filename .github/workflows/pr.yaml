@@ -59,6 +59,8 @@ jobs:
         shell: bash
 
     steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v4
       - name: 'Plan'
         id: terragrunt_plan
         env:
@@ -77,6 +79,8 @@ jobs:
         shell: bash
 
     steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v4
       - name: 'Plan'
         id: terragrunt_plan
         env:

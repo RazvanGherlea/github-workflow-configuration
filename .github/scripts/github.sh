@@ -1,32 +1,31 @@
 #!/usr/bin/env bash
 
-# Arrray containing AWS targed accounts based on modified files
-MODIFIED_FILES_PATH=()
+# Arrray's containing AWS targed accounts based on modified files
+MODIFIED_FILES_PATH_GLOBAL=()
+MODIFIED_FILES_PATH_CHINA=()
 
 green() {
     echo -e "\e[32m${1}\e[0m"
 }
 
 
-# Validate each edited file and decide where terragrunt should be executed
-# This helps to control PR execution time 
+# Iterate through the changed files and select target AWS accounts for execution (uniq)
 function aws_accounts_terragrunt_include () {
     # Select AWS account names and exclude china
-    if [[ $(echo $SET_RUNNER_CHINA) == true ]]; then
-        for aws_account_name in `jq -r 'keys[]' $JSON_ACC_LIST_PATH|grep -i china`; do
-            if [[ $1 == *"$aws_account_name"* ]]; then
-                # echo "$1 is part of the accound $aws_account_name"
-                MODIFIED_FILES_PATH+=($aws_account_name)
-            fi
-        done
-    else
-        for aws_account_name in `jq -r 'keys[]' $JSON_ACC_LIST_PATH|grep -v china`; do
-            if [[ $1 == *"$aws_account_name"* ]]; then
-                # echo "$1 is part of the accound $aws_account_name"
-                MODIFIED_FILES_PATH+=($aws_account_name)
-            fi
-        done
-    fi
+    # if [[ $(echo $SET_RUNNER_CHINA) == true ]]; then
+    #     for aws_account_name in `jq -r 'keys[]' $JSON_ACC_LIST_PATH|grep -i china`; do
+    #         if [[ $1 == *"$aws_account_name"* ]]; then
+    #             MODIFIED_FILES_PATH+=($aws_account_name)
+    #         fi
+    #     done
+    # else
+    #     for aws_account_name in `jq -r 'keys[]' $JSON_ACC_LIST_PATH|grep -v china`; do
+    #         if [[ $1 == *"$aws_account_name"* ]]; then
+    #             MODIFIED_FILES_PATH+=($aws_account_name)
+    #         fi
+    #     done
+    # fi
+    echo "::set-output china=trigger_china_pipeline::true"
 }
 
 # Execute terragrunt plan simultaneously on the target aws accounts 

@@ -21,11 +21,16 @@ function aws_accounts_terragrunt_include () {
     _aws_account_name=$(echo $current_file | cut -d '/' -f 1)
     _aws_region_name=$(echo $current_file | cut -d '/' -f 2)
 
-    # echo $_aws_region_name|grep -q $regex_exp_region
-    # echo $?
 
+    # Select the AWS accounts where to execute terragrunt plan
     if [[ "$_aws_region_name" =~ $regex_validate_aws_region ]]; then
         echo -e "\e[32m$current_file\e[0m is part of the $_aws_account_name AWS account in region $_aws_region_name"
+        if [[ $_aws_account_name == *china* ]]; then
+            # Add AWS target account to be executed from CHINA self hosted runner
+            MODIFIED_FILES_PATH_CHINA+=($_aws_account_name)
+        else
+            # Add AWS target account to be executed from GLOBAL self hosted runner
+            MODIFIED_FILES_PATH_GLOBAL+=($_aws_account_name)
     else
         echo -e "\e[31m$current_file\e[0m does not appear to contain any region. Ignoring $string"
     fi
@@ -79,3 +84,6 @@ done
 # fi
 
 #echo "trigger_china_pipeline=false" >> $GITHUB_OUTPUT
+
+echo $MODIFIED_FILES_PATH_GLOBAL
+echo $MODIFIED_FILES_PATH_CHINA

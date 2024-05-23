@@ -54,6 +54,7 @@ jobs:
 
 
   terragrunt_plan:
+    if: ${{ needs.Validate.outputs.trigger_china == true }}
     name: "Terragrunt plan "
     runs-on: ubuntu-latest
     needs: [Validate]

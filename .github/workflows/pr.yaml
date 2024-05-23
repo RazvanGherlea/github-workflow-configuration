@@ -34,11 +34,17 @@ jobs:
         #   since_last_remote_commit: true 
 
       - name: Terragrunt Plan Global
+        id: aws-target-account-finder
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
           JSON_ACC_LIST_PATH: accounts.json
           # SET_RUNNER_CHINA: true
         run: /bin/bash .github/scripts/github.sh
+
+      - name: export variable outpuit
+        env:
+          SELECTED_COLOR: ${{ steps.aws-target-account-finder.outputs.trigger_china_pipeline }}
+        run: echo "The selected color is $SELECTED_COLOR"
       
       # - name: validate argumet passing
       #   run: 

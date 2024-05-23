@@ -59,4 +59,4 @@ done
 #     trigger_terragrunt_cli
 # fi
 
-echo "trigger_china_pipeline=true" >> $GITHUB_OUTPUT
+echo "trigger_china_pipeline=false" >> $GITHUB_OUTPUT

@@ -49,9 +49,8 @@ jobs:
     name: "Terragrunt plan "
     runs-on: ubuntu-latest
     needs: [Validate]
-    # env:
-    #   SELECTED_COLOR: ${{ needs.Validate.outputs.trigger_china_pipeline }}
-    if: ${{ needs.Validate.outputs.trigger_china_pipeline == true }}
+    # if: ${{ needs.Validate.outputs.trigger_china_pipeline == true }}
+    if: contains( needs.Validate.outputs.trigger_china_pipeline, "true" )
     # strategy:
       # matrix:
       #   # Iterating through hardcoded dir path and comparing changed file

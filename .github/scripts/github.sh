@@ -86,5 +86,5 @@ done
 
 #echo "trigger_china_pipeline=false" >> $GITHUB_OUTPUT
 
-echo $MODIFIED_FILES_PATH_GLOBAL
-echo $MODIFIED_FILES_PATH_CHINA
+echo $MODIFIED_FILES_PATH_GLOBAL[@]
+echo $MODIFIED_FILES_PATH_CHINA[@]

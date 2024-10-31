@@ -40,7 +40,7 @@ function aws_accounts_terragrunt_include () {
         # INFO
         echo -e "\e[32m$current_file\e[0m is part of the $_aws_account_name AWS account in region $_aws_region_name"
         # Construct the string for comparement. If run-all used it will switch to aws account level, if not it will switch to target resource path
-        dynamic_path_select=$(terra_ops_arg_construct && echo $_aws_account_name  || echo $current_file )
+        dynamic_path_select=$(terra_ops_arg_construct && echo $_aws_account_name  || echo $(dirname "$current_file") )
 
         if [[ $_aws_account_name == *china* ]]; then
             # Add AWS target account to be executed from CHINA self hosted runner #TODO this has to be updated because it skipps direct paths but works with full run-all parameter

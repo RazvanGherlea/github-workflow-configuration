@@ -37,6 +37,7 @@ jobs:
       - name: Print Webhook Events and Payloads
         run: |
           echo "Webhook Event Name: ${{ github.event_name }}"
+          echo "Webhook Event Name: ${{ github.event.pull_request.title }}"
           echo "Webhook Payload: ${{ toJson(github.event) }}"
           echo "Commit Message: ${{ github.event.head_commit.message }}"
 

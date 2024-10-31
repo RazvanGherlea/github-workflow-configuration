@@ -34,7 +34,7 @@ function aws_accounts_terragrunt_include () {
             if [[ ${MODIFIED_FILES_PATH_CHINA[@]} =~ $_aws_account_name ]]; then
                 echo "AWS environment $_aws_account_name is already targeted for planning. Skipping"
             else
-                MODIFIED_FILES_PATH_CHINA+=($_aws_account_name)
+                MODIFIED_FILES_PATH_GLOBAL+=($([[ $COMMIT_MESSAGE_TRIGGER =~ "$RUNALL_TAG" ]] && echo $current_file || echo $_aws_account_name))
             fi
         else
             # Add AWS target account to be executed from GLOBAL self hosted runner

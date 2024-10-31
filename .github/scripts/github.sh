@@ -4,7 +4,7 @@
 # Regex validating the region AWS proprietary naming convention
 regex_validate_aws_region="^[a-z]{2}-[a-z]+-[[:digit:]]{1,2}$"
 # Tag used for triggering Terragrunt with run-all parameter in each target AWS target Account
-RUNALL_TAG=' run-all '
+RUNALL_TAG='[run-all]'
 
 
 

@@ -2,12 +2,13 @@
 
 # Settings
 regex_validate_aws_region="^[a-z]{2}-[a-z]+-[[:digit:]]{1,2}$"
+# Tag used for triggering Terragrunt with run-all parameter in the whole AWS target Account 
+RUNALL_TAG=' run-all '
 
 # TODO testing output of the commit message 
 echo $COMMIT_MESSAGE_TRIGGER
 
-# Get the message directly form the disk
-echo $(git log -1 --pretty=%B | head -n 1)
+
 
 # Arrray's containing AWS targed accounts based on modified files
 MODIFIED_FILES_PATH_GLOBAL=()
@@ -40,7 +41,8 @@ function aws_accounts_terragrunt_include () {
             if [[ ${MODIFIED_FILES_PATH_GLOBAL[@]} =~ $_aws_account_name ]]; then
                 echo "AWS environment $_aws_account_name is already targeted for planning. Skipping"
             else
-                MODIFIED_FILES_PATH_GLOBAL+=($_aws_account_name)
+                # MODIFIED_FILES_PATH_GLOBAL+=($_aws_account_name)
+                MODIFIED_FILES_PATH_GLOBAL+=($([[ $COMMIT_MESSAGE_TRIGGER =~ "$RUNALL_TAG" ]] && echo $current_file || echo $_aws_account_name))
             fi
         fi
     else

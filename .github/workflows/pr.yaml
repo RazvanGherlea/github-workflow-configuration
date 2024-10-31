@@ -40,6 +40,7 @@ jobs:
           echo "Webhook Event Name: ${{ github.event.pull_request.title }}"
           echo "Webhook Payload: ${{ toJson(github.event) }}"
           echo "Commit Message: ${{ github.event.head_commit.message }}"
+          
 
       - name: Get changed files
         id: changed-files

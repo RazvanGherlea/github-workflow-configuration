@@ -37,7 +37,7 @@ jobs:
         id: aws-target-account-finder
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
-          COMMIT_MESSAGE_TRIGGER: $( git log -1 --pretty=%B )
+          COMMIT_MESSAGE_TRIGGER: ${{ github.event.pull_request.commits[0].message }}
         run: /bin/bash .github/scripts/github.sh
       
 

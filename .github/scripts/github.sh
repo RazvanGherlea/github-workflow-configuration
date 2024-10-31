@@ -3,6 +3,9 @@
 # Settings
 regex_validate_aws_region="^[a-z]{2}-[a-z]+-[[:digit:]]{1,2}$"
 
+# TODO testing output of the commit message 
+echo $COMMIT_MESSAGE_TRIGGER
+
 # Arrray's containing AWS targed accounts based on modified files
 MODIFIED_FILES_PATH_GLOBAL=()
 MODIFIED_FILES_PATH_CHINA=()

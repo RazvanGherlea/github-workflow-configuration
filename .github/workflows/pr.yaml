@@ -37,14 +37,8 @@ jobs:
         id: aws-target-account-finder
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+          COMMIT_MESSAGE_TRIGGER: ${{ github.event.head_commit.message }}"
         run: /bin/bash .github/scripts/github.sh
-
-      # - name: export variable outpuit
-      #   env:
-      #     GLOBAL_RUNNER_AWS_TARGET_ACCOUNT: ${{ steps.aws-target-account-finder.outputs.GLOBAL_RUNNER_AWS_TARGET_ACCOUNT }}
-      #     CHINA_RUNNER_AWS_TARGET_ACCOUNT: ${{ steps.aws-target-account-finder.outputs.CHINA_RUNNER_AWS_TARGET_ACCOUNT }}
-      #     validation_empty_array: ${{ steps.aws-target-account-finder.outputs.validation_empty_array }}
-      #   run: echo "The selected color is $CHINA_RUNNER_AWS_TARGET_ACCOUNT $GLOBAL_RUNNER_AWS_TARGET_ACCOUNT"
       
 
 

@@ -7,7 +7,7 @@ regex_validate_aws_region="^[a-z]{2}-[a-z]+-[[:digit:]]{1,2}$"
 echo $COMMIT_MESSAGE_TRIGGER
 
 # Get the message directly form the disk
-git log -1 --pretty=%B | head -n 1
+echo $(git log -1 --pretty=%B | head -n 1)
 
 # Arrray's containing AWS targed accounts based on modified files
 MODIFIED_FILES_PATH_GLOBAL=()

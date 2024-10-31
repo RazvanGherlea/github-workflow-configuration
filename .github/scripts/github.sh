@@ -15,7 +15,7 @@ validation_empty_array=()
 
 
 terra_ops_arg_construct() {
-
+    # Validates if the trigger depth should be on the whole AWS Account level or per resource level
     if [[ $COMMIT_MESSAGE_TRIGGER =~ "$RUNALL_TAG" ]]; then
         return 0
     else

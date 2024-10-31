@@ -25,9 +25,14 @@ jobs:
     name: "Get changed files from the PullRequest stage"
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      commitmsg: ${{ github.event.head_commit.message }}
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v4
+      - name: get commit message
+        run: |
+            echo Commit MSG = ${{ env.commitmsg }}
 
       - name: Get changed files
         id: changed-files
